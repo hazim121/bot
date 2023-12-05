@@ -75,12 +75,14 @@ applications.''')
             st.write(f"Size: {uploaded_file.size} bytes")
             # Read file content
             if uploaded_file.type == "pdf":
+		    
                 
-				doc = textract.process(uploaded_file)
-				with open(doc, 'w') as f:
-				    f.write(doc.decode('utf-8'))
-				with open(doc, 'r') as f:
-					text = f.read()
+		    doc = textract.process(uploaded_file)
+		    with open(doc, 'w') as f:
+			    
+			    f.write(doc.decode('utf-8'))
+		    with open(doc, 'r') as f:
+			    text = f.read()
             else:
                 
                 st.warning("Unsupported file type. Please upload a pdf file.")
