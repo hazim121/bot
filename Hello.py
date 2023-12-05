@@ -34,7 +34,7 @@ def main():
     st.image("Tredence_Analytics_Logo.jpg",width=200)
     st.markdown("<h1 style='text-align: center; font-size: 2em;'>HR Bot</h1>", unsafe_allow_html=True)
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    nav = st.sidebar.radio("Navigation",["Home","Upload PDF/DOC"])
+    nav = st.sidebar.radio("Navigation",["Home","Chatbot"])
     if nav == "Home":
         st.image("Tredence_Analytics_Logo.jpg",width=600)
         st.markdown("#### **Problem Statement**")
@@ -67,7 +67,7 @@ Leverage LangChain's language models to interpret user queries, allowing the sys
       
     # Corrected indentation for st.write
     #st.write(f"""<div style="overflow: hidden; overflow-wrap: break-word; height: 200px;">{long_text2}</div>""", unsafe_allow_html=True)
-    if nav == "Upload PDF/DOC":
+    if nav == "Chatbot":
         
         uploaded_file = st.file_uploader("Choose a file", type=["pdf"])
         if uploaded_file is not None:
