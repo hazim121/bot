@@ -80,7 +80,7 @@ applications.''')
                 with tempfile.NamedTemporaryFile(delete=False) as temp_file:
                     temp_file.write(uploaded_file.read())
                 #doc = io.BytesIO(uploaded_file.read())
-                doc = textract.process(temp_file.name))
+                doc = textract.process(temp_file.name)
                 fil=doc.decode('utf-8')
                 text = fil.read()
                 tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
