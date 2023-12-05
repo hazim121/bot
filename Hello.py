@@ -78,9 +78,6 @@ applications.''')
             st.write(f"Size: {uploaded_file.size} bytes")
             # Read file content
             if uploaded_file.type == "application/pdf":
-                with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-                    temp_file.write(uploaded_file.read())
-                #doc = io.BytesIO(uploaded_file.read())
                 doc = textract.process(temp_file.name)
                 fil=doc.decode('utf-8')
                 text = fil.read()
