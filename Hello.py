@@ -14,6 +14,18 @@ import textract
 import io
 import tempfile
 
+def extract_text_from_pdf(uploaded_file):
+    # Create a temporary file and write the PDF content
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
+        temp_file.write(uploaded_file.read())
+
+    # Extract text using textract
+    text = textract.process(temp_file.name, encoding='utf-8', errors='replace')
+
+    # Delete the temporary file
+    os.unlink(temp_file.name)
+    return text.decode("utf-8")
+
 
 # Define Streamlit app
 def main():
@@ -78,9 +90,10 @@ applications.''')
             st.write(f"Size: {uploaded_file.size} bytes")
             # Read file content
             if uploaded_file.type == "application/pdf":
-                doc = textract.process(uploaded_file)
-                fil=doc.decode('utf-8')
-                text = fil.read()
+                #doc = textract.process(uploaded_file)
+                pdf_text = extract_text_from_pdf(uploaded_file)
+                #fil=doc.decode('utf-8')
+                text = pdf_text.read()
                 tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
     
                 def count_tokens(text: str) -> int:
