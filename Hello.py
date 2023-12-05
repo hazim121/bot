@@ -15,12 +15,12 @@ import textract
 
 # Define Streamlit app
 def main():
-    st.image("Tredence_Analytics_Logo.jfif",width=200)
+    st.image("Tredence_Analytics_Logo.jpg",width=200)
     st.markdown("<h1 style='text-align: center; font-size: 2em;'>HR Bot</h1>", unsafe_allow_html=True)
     st.set_option('deprecation.showPyplotGlobalUse', False)
     nav = st.sidebar.radio("Navigation",["Home","Upload PDF/DOC","Chatbot"])
     if nav == "Home":
-        st.image("Tredence_Analytics_Logo.jfif",width=600)
+        st.image("Tredence_Analytics_Logo.jpg",width=600)
         st.markdown("#### **Problem Statement**")
         long_text1 = '''
 Problem statement bfkdsvdev bdsvkdsvdkjv
