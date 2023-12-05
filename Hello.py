@@ -118,7 +118,8 @@ applications.''')
                 # Get embedding model
                 embeddings = OpenAIEmbeddings()  
                 # Create vector database
-                global db = FAISS.from_documents(chunks, embeddings)
+                global db
+                db = FAISS.from_documents(chunks, embeddings)
             else:
                 st.warning("Unsupported file type. Please upload a pdf file.")
         else: 
