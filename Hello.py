@@ -99,8 +99,7 @@ applications.''')
 
                 load_dotenv()
 
-                openai_api_key=st.secrets["key"]
-                os.environ["OPENAI_API_KEY"] = openai_api_key
+
     
                 # Embed text and store embeddings
                 # Get embedding model
@@ -162,4 +161,6 @@ def model_bot(prompt):
 
     return ans
 if __name__ == "__main__":
+    openai_api_key=st.secrets["key"]
+    os.environ["OPENAI_API_KEY"] = openai_api_key
     main()
