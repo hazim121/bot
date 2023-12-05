@@ -81,6 +81,32 @@ applications.''')
                     f.write(doc.decode('utf-8'))
                 with open(doc, 'r') as f:
                     text = f.read()
+                        tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
+    
+                def count_tokens(text: str) -> int:
+                    return len(tokenizer.encode(text))
+    
+                text_splitter = RecursiveCharacterTextSplitter(
+  
+                chunk_size = 512,
+                chunk_overlap  = 24,
+                length_function = count_tokens,
+                )
+    
+                chunks = text_splitter.create_documents([text])
+
+                from dotenv import load_dotenv
+
+                load_dotenv()
+
+                openai_api_key=st.secrets["key"]
+                os.environ["OPENAI_API_KEY"] = openai_api_key
+    
+                # Embed text and store embeddings
+                # Get embedding model
+                embeddings = OpenAIEmbeddings()  
+                # Create vector database
+                db = FAISS.from_documents(chunks, embeddings)
             else:
                 st.warning("Unsupported file type. Please upload a pdf file.")
         else: 
@@ -88,32 +114,7 @@ applications.''')
         
         
         
-        tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
-    
-        def count_tokens(text: str) -> int:
-            return len(tokenizer.encode(text))
-    
-        text_splitter = RecursiveCharacterTextSplitter(
-  
-            chunk_size = 512,
-            chunk_overlap  = 24,
-            length_function = count_tokens,
-        )
-    
-        chunks = text_splitter.create_documents([text])
 
-        from dotenv import load_dotenv
-
-        load_dotenv()
-
-        openai_api_key=st.secrets["key"]
-        os.environ["OPENAI_API_KEY"] = openai_api_key
-    
-        # Embed text and store embeddings
-        # Get embedding model
-        embeddings = OpenAIEmbeddings()  
-        # Create vector database
-        db = FAISS.from_documents(chunks, embeddings)
 
     if nav == "Chatbot":
         st.title("HR Bot")
