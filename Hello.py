@@ -14,7 +14,7 @@ import textract
 import io
 import tempfile
 
-
+db=None
 
 def extract_text_from_pdf(uploaded_file):
     # Create a temporary file and write the PDF content
@@ -81,8 +81,6 @@ applications.''')
     # Corrected indentation for st.write
     #st.write(f"""<div style="overflow: hidden; overflow-wrap: break-word; height: 200px;">{long_text2}</div>""", unsafe_allow_html=True)
     if nav == "Upload PDF/DOC":
-    
-        
         
         uploaded_file = st.file_uploader("Choose a file", type=["pdf"])
         if uploaded_file is not None:
