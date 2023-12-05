@@ -64,9 +64,9 @@ applications.''')
     # Corrected indentation for st.write
     #st.write(f"""<div style="overflow: hidden; overflow-wrap: break-word; height: 200px;">{long_text2}</div>""", unsafe_allow_html=True)
     if nav == "Upload PDF/DOC":
-        if suboption1 == "Upload Data":
-            uploaded_file = st.file_uploader("Choose a file", type=["pdf", "doc"])
-            doc = textract.process(uploaded_file)
+        
+        uploaded_file = st.file_uploader("Choose a file", type=["pdf", "doc"])
+        doc = textract.process(uploaded_file)
         with open(uploaded_file, 'w') as f:
             f.write(doc.decode('utf-8'))
         with open(uploaded_file, 'r') as f:
