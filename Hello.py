@@ -77,10 +77,10 @@ applications.''')
             st.write(f"Size: {uploaded_file.size} bytes")
             # Read file content
             if uploaded_file.type == "application/pdf":
-                doc = io.BytesIO(uploaded_file.read())
+                #doc = io.BytesIO(uploaded_file.read())
                 #doc = textract.process(pdf_bytes)
-                fil=doc.decode('utf-8')
-                text = fil.read()
+                #fil=doc.decode('utf-8')
+                text = uploaded_file.read()
                 tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
     
                 def count_tokens(text: str) -> int:
