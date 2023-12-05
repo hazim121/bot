@@ -91,9 +91,9 @@ applications.''')
             # Read file content
             if uploaded_file.type == "application/pdf":
                 #doc = textract.process(uploaded_file)
-                pdf_text = extract_text_from_pdf(uploaded_file)
+                text = extract_text_from_pdf(uploaded_file)
                 #fil=doc.decode('utf-8')
-                text = pdf_text.read()
+                #text = pdf_text.read()
                 tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
     
                 def count_tokens(text: str) -> int:
