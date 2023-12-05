@@ -67,7 +67,7 @@ applications.''')
     
         
         
-        uploaded_file = st.file_uploader("Choose a file", type=["application/pdf"])
+        uploaded_file = st.file_uploader("Choose a file", type=["pdf"])
         if uploaded_file is not None:
             
             st.write("File Details:")
