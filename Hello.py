@@ -31,6 +31,7 @@ def extract_text_from_pdf(uploaded_file):
 
 # Define Streamlit app
 def main():
+    global db
     st.image("Tredence_Analytics_Logo.jpg",width=200)
     st.markdown("<h1 style='text-align: center; font-size: 2em;'>HR Bot</h1>", unsafe_allow_html=True)
     st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -120,7 +121,6 @@ applications.''')
                 # Get embedding model
                 embeddings = OpenAIEmbeddings()  
                 # Create vector database
-                global db
                 db = FAISS.from_documents(chunks, embeddings)
             else:
                 st.warning("Unsupported file type. Please upload a pdf file.")
