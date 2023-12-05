@@ -40,44 +40,32 @@ def main():
         st.image("Tredence_Analytics_Logo.jpg",width=600)
         st.markdown("#### **Problem Statement**")
         long_text1 = '''
-Problem statement bfkdsvdev bdsvkdsvdkjv
+In today's dynamic corporate landscape, the ability to efficiently manage and comprehend vast repositories of company policy documents is a challenging task. HR professionals often face difficulties in retrieving specific information from extensive policy manuals, and traditional approaches lack the agility to answer nuanced queries effectively.
+
+The challenge is to design and implement a sophisticated HR Assistant empowered with state-of-the-art Natural Language Processing (NLP) and Document Understanding technologies. 
 '''
         st.write(f"""<div style="overflow: hidden; overflow-wrap: break-word; height: 200px;">{long_text1}</div>""",unsafe_allow_html=True,)
         st.markdown("#### **Solution**")
         long_text = '''
-solution being offred sdhbcv shbvcdsjv hbckjdsbc
+The solution is a smart HR Assistant powered by advanced language technology. It reads and understands company policy documents, allowing HR professionals to ask questions naturally. With its ability to provide instant, accurate responses, dynamic updates to reflect changes in policies, and seamless integration with LangChain for enhanced language understanding, the HR Assistant simplifies policy management and improves user interaction in a user-friendly manner.
 '''
         st.write(f"""<div style="overflow: hidden; overflow-wrap: break-word; height: 200px;">{long_text}</div>""",unsafe_allow_html=True,)
         st.markdown("")
         st.markdown("#### **Overview of Solution**")   
         st.markdown("##### **Steps Involved:**")
-        st.markdown("###### **Scaling Data:**")
-        st.markdown('''The function starts by scaling the numerical columns ('Age', 'Income', 
-'PurchaseAmount') of the input DataFrame using Min-Max scaling.''')
-        st.markdown("###### **GAN Architecture:**")
-        st.markdown('''It then defines functions to build the generator, discriminator, and the 
-GAN model. The generator creates synthetic data, the discriminator evaluates 
-whether the data is real or synthetic, and the GAN combines these two networks.''')
-        st.markdown("###### **Model Compilation:**")
-        st.markdown('''The discriminator is compiled with binary crossentropy loss, and the 
-Adam optimizer. The GAN is compiled with the same optimizer and loss function 
-but with the discriminator weights frozen.''')
-        st.markdown("###### **Training Loop:**")
-        st.markdown('''The GAN is trained through a loop of a specified number of epochs. In each 
-epoch, it generates synthetic data, updates the discriminator using both real 
-and generated data, and updates the generator to fool the discriminator.''')
-        st.markdown("###### **Data Generation:**")
-        st.markdown('''After training, the function generates synthetic data by feeding random 
-noise through the trained generator. The generated data is then inverse transformed 
-to the original scale.''')
-        st.markdown("###### **Data Post-Processing:**")
-        st.markdown('''The synthetic DataFrame is created and further processed, rounding 
-'Age' to integers, clipping 'Income' and 'PurchaseAmount' to reasonable 
-ranges, and assigning 'Male' or 'Female' genders randomly.''')
-        st.markdown('''In summary, this program leverages a GAN to create synthetic data 
-closely resembling the input dataset's statistical properties, offering 
-a method for privacy-preserving data generation or augmentation in various
-applications.''')
+        st.markdown("###### **Embedding Generation with FAISS:**")
+        st.markdown('''Utilize the FAISS (Facebook AI Similarity Search) library to generate embeddings from company policy documents.
+Leverage FAISS for efficient similarity search, allowing the system to compare and retrieve documents based on their embeddings.''')
+        st.markdown("###### **Vector Space Model:**")
+        st.markdown('''Implement a vector space model where policy documents are represented as vectors in a high-dimensional space.
+Use FAISS to perform nearest-neighbor searches, enabling rapid retrieval of documents with similar embeddings.''')
+        st.markdown("###### **Semantic Comparison:**")
+        st.markdown('''Apply advanced semantic comparison techniques to assess the similarity between user queries and document embeddings.
+Use semantic understanding to enhance the system's ability to provide contextually relevant responses..''')
+        st.markdown("###### **LangChain Integration for Question-Answering:**")
+        st.markdown('''Integrate LangChain to facilitate advanced question-answering capabilities.
+Leverage LangChain's language models to interpret user queries, allowing the system to provide precise and accurate responses based on document embeddings.''')
+      
     # Corrected indentation for st.write
     #st.write(f"""<div style="overflow: hidden; overflow-wrap: break-word; height: 200px;">{long_text2}</div>""", unsafe_allow_html=True)
     if nav == "Upload PDF/DOC":
