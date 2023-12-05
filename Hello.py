@@ -35,7 +35,7 @@ def main():
     st.image("Tredence_Analytics_Logo.jpg",width=200)
     st.markdown("<h1 style='text-align: center; font-size: 2em;'>HR Bot</h1>", unsafe_allow_html=True)
     st.set_option('deprecation.showPyplotGlobalUse', False)
-    nav = st.sidebar.radio("Navigation",["Home","Upload PDF/DOC","Chatbot"])
+    nav = st.sidebar.radio("Navigation",["Home","Upload PDF/DOC"])
     if nav == "Home":
         st.image("Tredence_Analytics_Logo.jpg",width=600)
         st.markdown("#### **Problem Statement**")
@@ -126,10 +126,6 @@ applications.''')
             st.warning("Please upload a file.")
         
         
-        
-
-
-    if nav == "Chatbot":
         st.title("HR Bot")
 
         # Initialize chat history
