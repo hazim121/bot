@@ -81,7 +81,7 @@ applications.''')
                     f.write(doc.decode('utf-8'))
                 with open(doc, 'r') as f:
                     text = f.read()
-                        tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
+                tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
     
                 def count_tokens(text: str) -> int:
                     return len(tokenizer.encode(text))
