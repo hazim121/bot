@@ -14,6 +14,8 @@ import textract
 import io
 import tempfile
 
+global db
+
 def extract_text_from_pdf(uploaded_file):
     # Create a temporary file and write the PDF content
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_file:
@@ -118,7 +120,6 @@ applications.''')
                 # Get embedding model
                 embeddings = OpenAIEmbeddings()  
                 # Create vector database
-                global db
                 db = FAISS.from_documents(chunks, embeddings)
             else:
                 st.warning("Unsupported file type. Please upload a pdf file.")
