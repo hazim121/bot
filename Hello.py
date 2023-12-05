@@ -1,51 +1,138 @@
-# Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022)
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
-from streamlit.logger import get_logger
-
-LOGGER = get_logger(__name__)
-
-
-def run():
-    st.set_page_config(
-        page_title="Hello",
-        page_icon="👋",
-    )
-
-    st.write("# Welcome to Streamlit! 👋")
-
-    st.sidebar.success("Select a demo above.")
-
-    st.markdown(
-        """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
-    )
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+from transformers import GPT2TokenizerFast
+from langchain.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import FAISS
+from langchain.chains.question_answering import load_qa_chain
+from langchain.llms import OpenAI
+from langchain.chains import ConversationalRetrievalChain
+import textract
 
 
+# Define Streamlit app
+def main():
+    st.image("Tredence_Analytics_Logo.jfif",width=200)
+    st.markdown("<h1 style='text-align: center; font-size: 2em;'>HR Bot</h1>", unsafe_allow_html=True)
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    nav = st.sidebar.radio("Navigation",["Home","Upload PDF/DOC","Chatbot"])
+    if nav == "Home":
+        st.image("Tredence_Analytics_Logo.jfif",width=600)
+        st.markdown("#### **Problem Statement**")
+        long_text1 = '''
+Problem statement bfkdsvdev bdsvkdsvdkjv
+'''
+        st.write(f"""<div style="overflow: hidden; overflow-wrap: break-word; height: 200px;">{long_text1}</div>""",unsafe_allow_html=True,)
+        st.markdown("#### **Solution**")
+        long_text = '''
+solution being offred sdhbcv shbvcdsjv hbckjdsbc
+'''
+        st.write(f"""<div style="overflow: hidden; overflow-wrap: break-word; height: 200px;">{long_text}</div>""",unsafe_allow_html=True,)
+        st.markdown("")
+        st.markdown("#### **Overview of Solution**")   
+        st.markdown("##### **Steps Involved:**")
+        st.markdown("###### **Scaling Data:**")
+        st.markdown('''The function starts by scaling the numerical columns ('Age', 'Income', 
+'PurchaseAmount') of the input DataFrame using Min-Max scaling.''')
+        st.markdown("###### **GAN Architecture:**")
+        st.markdown('''It then defines functions to build the generator, discriminator, and the 
+GAN model. The generator creates synthetic data, the discriminator evaluates 
+whether the data is real or synthetic, and the GAN combines these two networks.''')
+        st.markdown("###### **Model Compilation:**")
+        st.markdown('''The discriminator is compiled with binary crossentropy loss, and the 
+Adam optimizer. The GAN is compiled with the same optimizer and loss function 
+but with the discriminator weights frozen.''')
+        st.markdown("###### **Training Loop:**")
+        st.markdown('''The GAN is trained through a loop of a specified number of epochs. In each 
+epoch, it generates synthetic data, updates the discriminator using both real 
+and generated data, and updates the generator to fool the discriminator.''')
+        st.markdown("###### **Data Generation:**")
+        st.markdown('''After training, the function generates synthetic data by feeding random 
+noise through the trained generator. The generated data is then inverse transformed 
+to the original scale.''')
+        st.markdown("###### **Data Post-Processing:**")
+        st.markdown('''The synthetic DataFrame is created and further processed, rounding 
+'Age' to integers, clipping 'Income' and 'PurchaseAmount' to reasonable 
+ranges, and assigning 'Male' or 'Female' genders randomly.''')
+        st.markdown('''In summary, this program leverages a GAN to create synthetic data 
+closely resembling the input dataset's statistical properties, offering 
+a method for privacy-preserving data generation or augmentation in various
+applications.''')
+    # Corrected indentation for st.write
+    #st.write(f"""<div style="overflow: hidden; overflow-wrap: break-word; height: 200px;">{long_text2}</div>""", unsafe_allow_html=True)
+    if nav == "Upload PDF/DOC":
+        if suboption1 == "Upload Data":
+            uploaded_file = st.file_uploader("Choose a file", type=["pdf", "doc"])
+            doc = textract.process("pages/Employee Handbook.pdf")
+        with open(uploaded_file, 'w') as f:
+            f.write(doc.decode('utf-8'))
+        with open(uploaded_file, 'r') as f:
+            text = f.read()
+        
+        tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
+    
+        def count_tokens(text: str) -> int:
+            return len(tokenizer.encode(text))
+    
+        text_splitter = RecursiveCharacterTextSplitter(
+  
+            chunk_size = 512,
+            chunk_overlap  = 24,
+            length_function = count_tokens,
+        )
+    
+        chunks = text_splitter.create_documents([text])
+
+        from dotenv import load_dotenv
+
+        load_dotenv()
+
+        openai_api_key=st.secrets["key"]
+        os.environ["OPENAI_API_KEY"] = openai_api_key
+    
+        # Embed text and store embeddings
+        # Get embedding model
+        embeddings = OpenAIEmbeddings()  
+        # Create vector database
+        db = FAISS.from_documents(chunks, embeddings)
+
+    if nav == "Chatbot":
+        if prompt := st.chat_input("Hi! How can i help you?"):
+        # Display user message in chat message container
+        st.chat_message("user").markdown(prompt)
+        # Add user message to chat history
+        st.session_state.messages.append({"role": "user", "content": prompt})
+        response = model_bot(prompt)
+        # Display assistant response in chat message container
+        with st.chat_message("assistant"):
+            st.markdown(response)
+        # Add assistant response to chat history
+        st.session_state.messages.append({"role": "assistant", "content": response})
+       
+# Function to load original data (replace this with your actual function)
+def load_original_data():
+    np.random.seed(42)
+    data = {
+        'CustomerID': range(1, 101),
+        'Age': np.random.randint(18, 65, 100),
+        'Gender': np.random.choice(['Male', 'Female'], size=100),
+        'Income': np.random.randint(30000, 100000, 100),
+        'PurchaseAmount': np.random.uniform(10, 500, 100)
+        }
+    customer_df = pd.DataFrame(data)
+    return customer_df
+def model_bot(prompt):
+    chain = load_qa_chain(OpenAI(temperature=0), chain_type="stuff")
+    query = prompt    
+
+    docs = db.similarity_search(query) 
+
+    ans=chain.run(input_documents=docs, question=query)  
+
+
+    return ans
 if __name__ == "__main__":
-    run()
+    main()
