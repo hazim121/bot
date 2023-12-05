@@ -12,6 +12,7 @@ from langchain.llms import OpenAI
 from langchain.chains import ConversationalRetrievalChain
 import textract
 import io
+import tempfile
 
 
 # Define Streamlit app
