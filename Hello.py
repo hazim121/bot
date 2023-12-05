@@ -77,9 +77,9 @@ applications.''')
             # Read file content
             if uploaded_file.type == "application/pdf":
                 #doc = textract.process(uploaded_file)
-                with open(doc, 'w') as f:
-                    f.write(doc.decode('utf-8'))
-                with open(doc, 'r') as f:
+                with open(uploaded_file, 'w') as f:
+                    f.write(uploaded_file.decode('utf-8'))
+                with open(uploaded_file, 'r') as f:
                     text = f.read()
                 tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
     
