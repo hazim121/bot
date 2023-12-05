@@ -66,7 +66,7 @@ applications.''')
     if nav == "Upload PDF/DOC":
         
         uploaded_file = st.file_uploader("Choose a file", type=["pdf", "doc"])
-        doc = textract.process(uploaded_file)
+        #doc = textract.process(uploaded_file)
         with open(uploaded_file, 'w') as f:
             f.write(doc.decode('utf-8'))
         with open(uploaded_file, 'r') as f:
