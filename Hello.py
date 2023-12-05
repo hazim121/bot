@@ -14,7 +14,7 @@ import textract
 import io
 import tempfile
 
-global db
+
 
 def extract_text_from_pdf(uploaded_file):
     # Create a temporary file and write the PDF content
@@ -146,7 +146,7 @@ applications.''')
             st.chat_message("user").markdown(prompt)
             # Add user message to chat history
             st.session_state.messages.append({"role": "user", "content": prompt})
-            response = model_bot(prompt)
+            response = model_bot(prompt,db)
             # Display assistant response in chat message container
             with st.chat_message("assistant"):
                 st.markdown(response)
@@ -165,7 +165,7 @@ def load_original_data():
         }
     customer_df = pd.DataFrame(data)
     return customer_df
-def model_bot(prompt):
+def model_bot(prompt,db):
     chain = load_qa_chain(OpenAI(temperature=0), chain_type="stuff")
     query = prompt    
 
