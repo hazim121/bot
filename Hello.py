@@ -64,6 +64,7 @@ applications.''')
     # Corrected indentation for st.write
     #st.write(f"""<div style="overflow: hidden; overflow-wrap: break-word; height: 200px;">{long_text2}</div>""", unsafe_allow_html=True)
     if nav == "Upload PDF/DOC":
+    
         
         
         uploaded_file = st.file_uploader("Choose a file", type=["pdf"])
@@ -75,11 +76,11 @@ applications.''')
             st.write(f"Size: {uploaded_file.size} bytes")
             # Read file content
             if uploaded_file.type == "pdf":
-		    doc = textract.process(uploaded_file)
-		    with open(doc, 'w') as f:
-			    f.write(doc.decode('utf-8'))
-		    with open(doc, 'r') as f:
-			    text = f.read()
+                doc = textract.process(uploaded_file)
+                with open(doc, 'w') as f:
+                    f.write(doc.decode('utf-8'))
+                with open(doc, 'r') as f:
+                    text = f.read()
             else:
                 st.warning("Unsupported file type. Please upload a pdf file.")
         else: 
